@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GIT_REPO_URL = 'gitrepo'
-        GIT_CREDENTIALS_ID = 'github-pat'
+        GIT_CREDENTIALS_ID = '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-pat'
         GIT_BRANCH = 'main'
     }
 
