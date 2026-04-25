@@ -8,28 +8,14 @@ pipeline {
     }
 
     stages {
-
-        stage('Checkout SCM') {
+        stage('Checkout SCM') { ... }
+        stage('Setup Python Environment') { ... }
+        
+        // ILIPAT ANG DEPLOY DITO PARA MABASA NG SELENIUM ANG LATEST CODE
+        stage('Deploy to Apache') {
             steps {
-                checkout scm: [
-                    $class: 'GitSCM',
-                    branches: [[name: "*/${env.GIT_BRANCH}"]],
-                    userRemoteConfigs: [[
-                        url: "${env.GIT_REPO_URL}",
-                        credentialsId: "${env.GIT_CREDENTIALS_ID}"
-                    ]]
-                ]
-            }
-        }
-
-        stage('Setup Python Environment') {
-            steps {
-                sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install --upgrade pip
-                pip install -r requirements.txt
-                '''
+                sh 'sudo rsync -av -o --delete ./ /var/www/html/'
+                sh 'sudo chown -R www-data:www-data /var/www/html/'
             }
         }
 
@@ -41,7 +27,7 @@ pipeline {
                 '''
             }
         }
-
+    }
         stage('Deploy to Apache') {
             steps {
                 sh '''
