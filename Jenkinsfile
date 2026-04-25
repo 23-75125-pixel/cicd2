@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GIT_REPO_URL = 'gitrepo'
+        GIT_REPO_URL = 'https://github.com/23-75125-pixel/cicd2.git'
         GIT_CREDENTIALS_ID = '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-pat'
         GIT_BRANCH = 'main'
     }
